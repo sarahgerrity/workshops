@@ -6,12 +6,18 @@ from page_objects.search_result_comp import SearchResultComp
 
 class SearchResultsPage(BasePage):
     SEARCH_RESULT_ROW = (By.XPATH, "(//div[contains(@class,'SpotListItemRow')])[{}]")
+    SEARCH_RESULT_ROW_BY_ADDRESS = (By.XPATH, "//p[contains(text(), '{}}')]/ancestor::div[contains(@class, 'SpotListItemRow')]")
 
     def __init__(self, driver):
         super().__init__(driver)
 
     def get_search_result(self, result_index):
         row_selector = self.format_partial_selector(self.SEARCH_RESULT_ROW, result_index)
+        row_element = self.get_element_with_wait(row_selector)
+        return SearchResultComp(self.driver, row_element)
+
+    def get_search_result_by_address(self, address):
+        row_selector = self.format_partial_selector(self.SEARCH_RESULT_ROW_BY_ADDRESS, address)
         row_element = self.get_element_with_wait(row_selector)
         return SearchResultComp(self.driver, row_element)
 
