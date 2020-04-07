@@ -30,12 +30,3 @@ class WeatherData(Subject):
         self.humidity = humid
         self.pressure = press
         self.measurements_changed()
-
-    def get_temperature(self):
-        return self.temperature
-
-    def get_humidity(self):
-        return self.humidity
-
-    def get_pressure(self):
-        return self.pressure
